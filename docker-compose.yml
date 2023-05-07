@@ -16,7 +16,6 @@ services:
   bot:
     build: .
     command: bash -c "alembic upgrade head && python src/bot.py"
-    #    command: bash -c "alembic -x database_url=mysql+pymysql://loan:loan_bot@mysql:3306/loan revision --autogenerate -m 'create admin page'"
 
     restart: always
     volumes:
