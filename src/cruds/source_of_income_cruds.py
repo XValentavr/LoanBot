@@ -2,7 +2,6 @@ import uuid
 from typing import Union
 
 from sqlalchemy import extract, func
-from sqlalchemy.orm import joinedload
 
 from create_engine import session
 from models.admins import LoanAdminsModel
@@ -56,7 +55,7 @@ class SourceOfIncomeCruds:
     @staticmethod
     def get_source_percent_and_summa_by_username_other_date(username: str, date_to_check) -> Union[EarningsModel]:
 
-        data = (session.query(
+        return (session.query(
             extract('month', EarningsModel.time_created).label('month'),
             extract('year', EarningsModel.time_created).label('year'),
             EarningsModel.currency,
@@ -68,7 +67,6 @@ class SourceOfIncomeCruds:
                 .group_by('year', 'month', EarningsModel.currency)
                 .all())
 
-        return data
 
 
 source_of_income_cruds = SourceOfIncomeCruds()
